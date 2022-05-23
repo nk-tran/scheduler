@@ -3,8 +3,11 @@ import DayList from "./DayList";
 import "components/Application.scss";
 import Appointment from "./Appointment/index";
 import axios from "axios";
-import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors"
-
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay,
+} from "../helpers/selectors";
 
 // const appointments = {
 //   "1": {
@@ -50,26 +53,31 @@ export default function Application(props) {
     day: "Monday",
     days: [],
     appointments: {},
-    interviewers: {}
+    interviewers: {},
   });
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
-  const setDay = day => setState({ ...state, day });
+  const setDay = (day) => setState({ ...state, day });
 
+  const dailyInterviewers = getInterviewersForDay(state, state.day);
 
-const schedule = state.appointments.map((appointment) => {
-  const interview = getInterview(state, appointment.interview);
+  const schedule = getAppointmentsForDay(state, state.day).map(
+    (appointment) => {
+      const interview = getInterview(state, appointment.interview);
 
-  return (
-    <Appointment
-      key={appointment.id}
-      id={appointment.id}
-      time={appointment.time}
-      interview={interview}
-    />
+      return (
+        <Appointment
+          key={appointment.id}
+          id={appointment.id}
+          time={appointment.time}
+          interview={interview}
+          interviewers={dailyInterviewers}
+
+        />
+      );
+    }
   );
-});
 
   // useEffect(() => {
   //   const testURL = `/api/days`;
@@ -82,14 +90,17 @@ const schedule = state.appointments.map((appointment) => {
     const dayURL = `/api/days`;
     const appURL = `/api/appointments`;
     const intURL = `/api/interviewers`;
-    Promise.all([
-      axios.get(dayURL),
-      axios.get(appURL),
-      axios.get(intURL)
-    ]).then((all) => {
-      console.log(all)
-      setState(prev => ({...prev, days: all[0].data, appointments : all[1].data, interviewers: all[2].data }));
-    })
+    Promise.all([axios.get(dayURL), axios.get(appURL), axios.get(intURL)]).then(
+      (all) => {
+        console.log(all);
+        setState((prev) => ({
+          ...prev,
+          days: all[0].data,
+          appointments: all[1].data,
+          interviewers: all[2].data,
+        }));
+      }
+    );
   }, []);
 
   return (
@@ -102,11 +113,7 @@ const schedule = state.appointments.map((appointment) => {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-        <DayList
-          days={state.days}
-          day={state.day}
-          setDay={setDay}
-        />
+          <DayList days={state.days} day={state.day} setDay={setDay} />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
