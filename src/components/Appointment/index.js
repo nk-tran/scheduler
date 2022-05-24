@@ -31,15 +31,19 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
+    console.log({name, interviewer})
   
     transition(SAVING, true)
     props.bookInterview(props.id, interviewLocal).then(() => {
       transition(SHOW)
       interview = interviewLocal
     }).catch(err => {
+      console.log("error:", err)
       transition(ERROR_SAVE, true)})
   
   }
+
+
   function onDelete() {
     transition(CONFIRM)
   }
@@ -51,6 +55,14 @@ export default function Appointment(props) {
     transition(ERROR_DELETE, true)})
   
   }
+
+  // function destroy(event) {
+  //   transition(DELETING, true);
+  //   props
+  //    .cancelInterview(props.id)
+  //    .then(() => transition(EMPTY))
+  //    .catch(error => transition(ERROR_DELETE, true));
+  //  }
 
 
   return (
@@ -75,6 +87,7 @@ export default function Appointment(props) {
         )}
         {mode === CREATE && (
           <Form
+            interview={props.interviewer}
             interviewers={props.interviewers}
             onCancel={back}
             onSave={save}
