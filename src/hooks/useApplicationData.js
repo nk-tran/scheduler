@@ -45,30 +45,9 @@ export default function useApplicationData() {
   };
   
   function cancelInterview(id) {
-    // const appointment = {
-    //   ...state.appointments[id],
-    //   interview: null
-    // }
-    // const appointments = {
-    //   ...state.appointments,
-    //   [id]:appointment
-    // }
-    //     // Update spot of day
-    // let scheduleDay = null;
-    // for(let day of state.days) {
-    //   if(day.appointments.includes(id)) {
-    //     scheduleDay= {...day, spots: day.spots+1};
-    //   }
-    // }
-  
-    // const days = state.days.splice(scheduleDay.id-1, 1, scheduleDay)
-    // console.log(days)
-
-    // const days = state.days.filter()
-  
     return(axios.delete(`/api/appointments/${id}`)
     .then((res)=>{
-      if(res.status < 400) {
+      if(res.status) {
         // axios.get('/api/appointments/')
         //   .then((res) => {
         //     setState((prev) => ({
@@ -91,6 +70,26 @@ export default function useApplicationData() {
           }
         );
       }}))
+    // const appointment = {
+    //   ...state.appointments[id],
+    //   interview: null
+    // }
+    // const appointments = {
+    //   ...state.appointments,
+    //   [id]:appointment
+    // }
+    //     // Update spot of day
+    // let scheduleDay = null;
+    // for(let day of state.days) {
+    //   if(day.appointments.includes(id)) {
+    //     scheduleDay= {...day, spots: day.spots+1};
+    //   }
+    // }
+  
+    // const days = state.days.splice(scheduleDay.id-1, 1, scheduleDay)
+    // console.log(days)
+
+    // const days = state.days.filter()
   }
 
 
