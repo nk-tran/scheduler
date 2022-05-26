@@ -48,13 +48,6 @@ export default function useApplicationData() {
     return(axios.delete(`/api/appointments/${id}`)
     .then((res)=>{
       if(res.status) {
-        // axios.get('/api/appointments/')
-        //   .then((res) => {
-        //     setState((prev) => ({
-        //       ...prev,
-        //       appointments: res.data,
-        //     }))
-        //   })
         const dayURL = `/api/days`;
         const appURL = `/api/appointments`;
         const intURL = `/api/interviewers`;
@@ -68,7 +61,14 @@ export default function useApplicationData() {
               interviewers: all[2].data,
             }));
           }
-        );
+          );
+          // axios.get('/api/appointments/')
+          //   .then((res) => {
+          //     setState((prev) => ({
+          //       ...prev,
+          //       appointments: res.data,
+          //     }))
+          //   })
       }}))
     // const appointment = {
     //   ...state.appointments[id],
