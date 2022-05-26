@@ -69,21 +69,20 @@ export default function Appointment(props) {
     <>
       <article className="appointment">
         {mode === SHOW && (
-          <Show
+          <><Header time={props.time}></Header><Show
             student={interview.student}
             interviewer={interview.interviewer.name}
             onDelete={onDelete}
             onEdit={() => {
               transition(EDIT);
-            }}
-          />
+            } } /></>
         )}
         {mode === EMPTY && (
-          <Empty
+          <><Header time={props.time}></Header><Empty
+            time={props.time}
             onAdd={() => {
               transition(CREATE);
-            }}
-          />
+            } } /></>
         )}
         {mode === CREATE && (
           <Form

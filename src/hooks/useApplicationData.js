@@ -45,29 +45,51 @@ export default function useApplicationData() {
   };
   
   function cancelInterview(id) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: null
-    }
-    const appointments = {
-      ...state.appointments,
-      [id]:appointment
-    }
-        // Update spot of day
-        let scheduleDay = null;
-        for(let day of state.days) {
-          if(day.appointments.includes(id)) {
-            scheduleDay= {...day, spots: day.spots+1};
-          }
-        }
+    // const appointment = {
+    //   ...state.appointments[id],
+    //   interview: null
+    // }
+    // const appointments = {
+    //   ...state.appointments,
+    //   [id]:appointment
+    // }
+    //     // Update spot of day
+    // let scheduleDay = null;
+    // for(let day of state.days) {
+    //   if(day.appointments.includes(id)) {
+    //     scheduleDay= {...day, spots: day.spots+1};
+    //   }
+    // }
   
-    const days = state.days.splice(scheduleDay.id-1, 1, scheduleDay)
+    // const days = state.days.splice(scheduleDay.id-1, 1, scheduleDay)
+    // console.log(days)
+
+    // const days = state.days.filter()
   
     return(axios.delete(`/api/appointments/${id}`)
     .then((res)=>{
       if(res.status < 400) {
-        setState(prev=> ({...prev, appointments, days}))
-  
+        // axios.get('/api/appointments/')
+        //   .then((res) => {
+        //     setState((prev) => ({
+        //       ...prev,
+        //       appointments: res.data,
+        //     }))
+        //   })
+        const dayURL = `/api/days`;
+        const appURL = `/api/appointments`;
+        const intURL = `/api/interviewers`;
+        Promise.all([axios.get(dayURL), axios.get(appURL), axios.get(intURL)]).then(
+          (all) => {
+            console.log(all);
+            setState((prev) => ({
+              ...prev,
+              days: all[0].data,
+              appointments: all[1].data,
+              interviewers: all[2].data,
+            }));
+          }
+        );
       }}))
   }
 
