@@ -27,10 +27,10 @@ npm run storybook
 
 ## Application
 
-#Layout 
+Layout 
 
 ![layout](https://github.com/nktrancs/scheduler/blob/master/public/images/schedule.png)
 
-#Edit, add, delete
+Edit, add, delete
 
 ![edit](https://github.com/nktrancs/scheduler/blob/master/public/images/addstudent.png)
