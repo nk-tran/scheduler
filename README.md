@@ -27,7 +27,7 @@ npm run storybook
 
 ## Application
 
-Layout 
+Home page Layout 
 
 ![layout](https://github.com/nktrancs/scheduler/blob/master/public/images/schedule.png)
 
