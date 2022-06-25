@@ -31,6 +31,6 @@ Home page Layout
 
 ![layout](https://github.com/nktrancs/scheduler/blob/master/public/images/schedule.png)
 
-Edit, add, delete
+Edit, add, delete appointments
 
 ![edit](https://github.com/nktrancs/scheduler/blob/master/public/images/addstudent.png)
